@@ -12,3 +12,5 @@ app.get('/todos', async (req, res) => {
   }
 })
 ```
+
+La récupération des todos se passe ligne 30 dans Todos.js
