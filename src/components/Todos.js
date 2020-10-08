@@ -4,7 +4,7 @@ import SelectTodos from "./SelectTodos";
 import AddTodoForm from "./AddTodoForm";
 import { v4 as uuidv4 } from "uuid";
 
-const initialTodos = [
+/* const initialTodos = [
   {
     text: "Faires des courses",
     isCompleted: true,
@@ -21,10 +21,41 @@ const initialTodos = [
     id: "9e60d353-cd72-40bb-97e6-5841e51635c0",
   },
 ];
+ */
 
 const Todos = () => {
-  const [todos, setTodos] = useState(initialTodos);
+  const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState("all");
+
+  React.useEffect(() => {
+    fetch("http://192.168.1.100:7777/todos")
+      /*
+      Dans le serveur, créer une route qui affiche les todos :
+      (elle sera récupérée ici et les todos de la database devraient s'afficher sur le rendu)
+      app.get('/todos', async (req, res) => {
+      try {
+      const todos = await Todos.findAll({ attributes: ['task'] })
+      res.json({ code: 200, data: todos })
+      } catch (e) {
+      res.status(500).json({ code: 500, data: 'Pierre test erreur' })
+      }
+      })
+      */
+      .then((response) => {
+        console.log("response", response);
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error("fail");
+      })
+      .then((result) => {
+        console.log("result", result.data);
+        setTodos(result.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, []);
 
   const addTodo = (text) => {
     const newTodo = {

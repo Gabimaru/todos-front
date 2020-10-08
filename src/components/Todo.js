@@ -7,7 +7,7 @@ const Todo = (props) => {
   };
   return (
     <div className="shadow-sm border p-2 d-flex align-items-center justify-content-between mb-2">
-      <span style={style}>{todo.text}</span>
+      <span style={style}>{todo}</span>
       <div className="btn-group">
         {todo.isCompleted ? (
           <button
