@@ -1,17 +1,17 @@
-import React from "react"
+import React from "react";
 
 const Todo = (props) => {
-  const { todo, deleteTodo, toggleCompleteTodo } = props
+  const { todo, deleteTodo, toggleCompleteTodo } = props;
   const style = {
     textDecoration: todo.isCompleted ? "line-through" : "none",
-  }
+  };
   return (
     <div className="shadow-sm border p-2 d-flex align-items-center justify-content-between mb-2">
       <span style={style}>{todo.text}</span>
       <div className="btn-group">
         {todo.isCompleted ? (
           <button
-            className="btn btn-light btn-sm btn-dark"
+            className="btn btn-light btn-sm btn-dark mx-1"
             type="button"
             onClick={() => toggleCompleteTodo(todo)}
           >
@@ -19,7 +19,7 @@ const Todo = (props) => {
           </button>
         ) : (
           <button
-            className="btn btn-light btn-sm"
+            className="btn btn-light btn-sm mx-1"
             type="button"
             onClick={() => toggleCompleteTodo(todo)}
           >
@@ -35,7 +35,7 @@ const Todo = (props) => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Todo
+export default Todo;

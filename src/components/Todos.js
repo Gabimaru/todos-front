@@ -1,8 +1,8 @@
-import React, { useState } from "react"
-import TodosList from "./TodosList"
-import SelectTodos from "./SelectTodos"
-import AddTodoForm from "./AddTodoForm"
-import { v4 as uuidv4 } from "uuid"
+import React, { useState } from "react";
+import TodosList from "./TodosList";
+import SelectTodos from "./SelectTodos";
+import AddTodoForm from "./AddTodoForm";
+import { v4 as uuidv4 } from "uuid";
 
 const initialTodos = [
   {
@@ -20,50 +20,50 @@ const initialTodos = [
     isCompleted: false,
     id: "9e60d353-cd72-40bb-97e6-5841e51635c0",
   },
-]
+];
 
 const Todos = () => {
-  const [todos, setTodos] = useState(initialTodos)
-  const [filter, setFilter] = useState("all")
+  const [todos, setTodos] = useState(initialTodos);
+  const [filter, setFilter] = useState("all");
 
   const addTodo = (text) => {
     const newTodo = {
       text,
       isCompleted: false,
       id: uuidv4(),
-    }
-    setTodos([...todos, newTodo])
-  }
+    };
+    setTodos([...todos, newTodo]);
+  };
 
   const deleteTodo = (task) => {
-    setTodos(todos.filter((el) => el.id !== task.id))
-  }
+    setTodos(todos.filter((el) => el.id !== task.id));
+  };
 
   const toggleCompleteTodo = (task) => {
     setTodos(
       todos.map((el) => {
         if (el.id === task.id) {
-          el.isCompleted = !el.isCompleted
+          el.isCompleted = !el.isCompleted;
         }
-        return el
+        return el;
       })
-    )
-  }
+    );
+  };
 
   const filteredTodos = todos.filter((el) => {
     if (filter === "completed") {
-      return el.isCompleted
+      return el.isCompleted;
     }
     if (filter === "notcompleted") {
-      return !el.isCompleted
+      return !el.isCompleted;
     }
-    return true
-  })
+    return true;
+  });
 
-  const completedCount = todos.filter((el) => el.isCompleted).length
+  const completedCount = todos.filter((el) => el.isCompleted).length;
   return (
     <main>
-      <h2 className="text-center">
+      <h2 className="text-center my-4">
         Ma liste de tâches ({completedCount} / {todos.length})
       </h2>
       <SelectTodos filter={filter} setFilter={setFilter} />
@@ -74,7 +74,7 @@ const Todos = () => {
       />
       <AddTodoForm addTodo={addTodo} setFilter={setFilter} />
     </main>
-  )
-}
+  );
+};
 
-export default Todos
+export default Todos;
