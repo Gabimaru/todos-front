@@ -37,6 +37,7 @@ const Todos = () => {
     })
       .then((response) => {
         console.log(response);
+        window.location.reload();
         return response.json();
       })
       .catch((error) => console.error(error));
@@ -54,6 +55,7 @@ const Todos = () => {
     })
       .then((response) => {
         console.log(response);
+        window.location.reload();
         return response.json();
       })
       .catch((error) => console.error(error));
@@ -71,16 +73,17 @@ const Todos = () => {
     })
       .then((response) => {
         console.log(response);
+        window.location.reload();
         return response.json();
       })
       .catch((error) => console.error(error));
   };
 
   const filteredTodos = todos.filter((el) => {
-    if (filter === "completed") {
+    if (el.done === "true") {
       return el.isCompleted;
     }
-    if (filter === "notcompleted") {
+    if (el.done === "false") {
       return !el.isCompleted;
     }
     return true;
