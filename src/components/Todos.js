@@ -8,7 +8,7 @@ const Todos = () => {
   const [filter, setFilter] = useState("all");
 
   React.useEffect(() => {
-    fetch("http://192.168.1.100:7777/todos")
+    fetch("http://127.0.0.1:7777/todos")
       .then((response) => {
         console.log("response", response);
         if (response.ok) {
@@ -26,7 +26,7 @@ const Todos = () => {
   }, []);
 
   const addTodo = (text) => {
-    fetch("http://192.168.1.100:7777/create", {
+    fetch("http://127.0.0.1:7777/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const Todos = () => {
   };
 
   const deleteTodo = (text) => {
-    fetch(`http://192.168.1.100:7777/delete/${text}`, {
+    fetch(`http://127.0.0.1:7777/delete/${text}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const Todos = () => {
   };
 
   const toggleCompleteTodo = (text) => {
-    fetch(`http://192.168.1.100:7777/complete/${text}`, {
+    fetch(`http://127.0.0.1:7777/complete/${text}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
