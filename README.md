@@ -1,3 +1,5 @@
+Pour récupérer les dépendances faites `yarn` dans le projet
+
 Dans le serveur, créer une route qui affiche les todos :
 (elle sera récupérée ici et les todos de la database devraient s'afficher sur le rendu)
 
@@ -13,4 +15,4 @@ app.get('/todos', async (req, res) => {
 })
 ```
 
-La récupération des todos se passe ligne 30 dans Todos.js
+La récupération des todos se passe ligne 30 dans `src/components/Todos.js`
