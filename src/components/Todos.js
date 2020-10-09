@@ -2,26 +2,6 @@ import React, { useState } from "react";
 import TodosList from "./TodosList";
 import SelectTodos from "./SelectTodos";
 import AddTodoForm from "./AddTodoForm";
-import { v4 as uuidv4 } from "uuid";
-
-/* const initialTodos = [
-  {
-    text: "Faires des courses",
-    isCompleted: true,
-    id: "1b688c51-e990-4ce3-95a5-9018cf81d23d",
-  },
-  {
-    text: "Réviser ES6 classes",
-    isCompleted: false,
-    id: "efc6331d-7ca2-49a6-b014-378b8280b33d",
-  },
-  {
-    text: "Aroser les plantes",
-    isCompleted: false,
-    id: "9e60d353-cd72-40bb-97e6-5841e51635c0",
-  },
-];
- */
 
 const Todos = () => {
   const [todos, setTodos] = useState([]);
@@ -29,18 +9,6 @@ const Todos = () => {
 
   React.useEffect(() => {
     fetch("http://192.168.1.100:7777/todos")
-      /*
-      Dans le serveur, créer une route qui affiche les todos :
-      (elle sera récupérée ici et les todos de la database devraient s'afficher sur le rendu)
-      app.get('/todos', async (req, res) => {
-      try {
-      const todos = await Todos.findAll({ attributes: ['task'] })
-      res.json({ code: 200, data: todos })
-      } catch (e) {
-      res.status(500).json({ code: 500, data: 'Pierre test erreur' })
-      }
-      })
-      */
       .then((response) => {
         console.log("response", response);
         if (response.ok) {
@@ -58,27 +26,54 @@ const Todos = () => {
   }, []);
 
   const addTodo = (text) => {
-    const newTodo = {
-      text,
-      isCompleted: false,
-      id: uuidv4(),
-    };
-    setTodos([...todos, newTodo]);
-  };
-
-  const deleteTodo = (task) => {
-    setTodos(todos.filter((el) => el.id !== task.id));
-  };
-
-  const toggleCompleteTodo = (task) => {
-    setTodos(
-      todos.map((el) => {
-        if (el.id === task.id) {
-          el.isCompleted = !el.isCompleted;
-        }
-        return el;
+    fetch("http://192.168.1.100:7777/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        task: text,
+      }),
+    })
+      .then((response) => {
+        console.log(response);
+        return response.json();
       })
-    );
+      .catch((error) => console.error(error));
+  };
+
+  const deleteTodo = (text) => {
+    fetch(`http://192.168.1.100:7777/delete/${text}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        text: text,
+      }),
+    })
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const toggleCompleteTodo = (text) => {
+    fetch(`http://192.168.1.100:7777/complete/${text}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        text: text,
+      }),
+    })
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .catch((error) => console.error(error));
   };
 
   const filteredTodos = todos.filter((el) => {
